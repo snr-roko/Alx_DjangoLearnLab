@@ -12,19 +12,19 @@ print(all_books)
 
 
 
-book_to_update = Book.objects.get(title = "1984")
-book_to_update.title = "Nineteen Eighty-Four"
-book_to_update.save()
+book = Book.objects.get(title = "1984")
+book.title = "Nineteen Eighty-Four"
+book.save()
 
 No Output
 
 
 
-book_to_delete = Book.objects.get(title = "Nineteen Eighty-Four")
-book_to_delete.delete()
+book = Book.objects.get(title = "Nineteen Eighty-Four")
+book.delete()
 
-all_books = Book.objects.all()
-print(all_books)
+book = Book.objects.get(title= "Nineteen Eighty-Four")
+print(book)
 
 <QuerySet []>
 
