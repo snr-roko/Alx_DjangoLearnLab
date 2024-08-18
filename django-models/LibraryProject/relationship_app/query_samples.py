@@ -3,9 +3,9 @@ from .models import Author, Book, Library, Librarian
 # Querying all books by a specific Author
 def books_by_author(author_name):
   author = Author.objects.get(name=author_name)
-  books_by_author = author.books.all()
+  books = Book.objects.filter(author=author)
 
-  for book in books_by_author:
+  for book in books:
     print(book.name)
 
 
