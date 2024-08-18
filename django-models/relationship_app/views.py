@@ -2,13 +2,13 @@ from django.shortcuts import render
 from .models import Book
 from .models import Library
 from django.views.generic.detail import DetailView
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
+from django.shortcuts import render
+from django.shortcuts import redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
-from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
 
 # Create your views here.
 
