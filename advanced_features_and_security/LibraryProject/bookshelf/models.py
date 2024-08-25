@@ -1,25 +1,15 @@
 from django.db import models
-from django.conf import settings  # This will allow using the custom user model
-
-# Create your models here.
-class Book(models.Model):
-    title = models.CharField(max_length=200)
-    author = models.CharField(max_length=100)
-    publication_year = models.IntegerField()
-
-    def __repr__(self):
-        return f"Book(title='{self.title}', author='{self.author}', year={self.publication_year})"
+from django.conf import settings  # For using the custom user model
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 # Custom user model
-from django.contrib.auth.models import AbstractUser
-
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
 
-# Custom user manager
-from django.contrib.auth.models import BaseUserManager
+    objects = CustomUserManager()
 
+# Custom user manager
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, date_of_birth=None, profile_photo=None, password=None, **extra_fields):
         if not username:
@@ -40,12 +30,22 @@ class CustomUserManager(BaseUserManager):
 
         return self.create_user(username, password=password, **extra_fields)
 
-# Attach the manager to the CustomUser model
-class CustomUser(AbstractUser):
-    date_of_birth = models.DateField(null=True, blank=True)
-    profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
+# Book model with custom permissions
+class Book(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=100)
+    publication_year = models.IntegerField()
 
-    objects = CustomUserManager()
+    class Meta:
+        permissions = [
+            ('can_view', 'Can view book'),
+            ('can_create', 'Can create book'),
+            ('can_edit', 'Can edit book'),
+            ('can_delete', 'Can delete book'),
+        ]
+
+    def __repr__(self):
+        return f"Book(title='{self.title}', author='{self.author}', year={self.publication_year})"
 
 # Example model that references the custom user model
 class ExampleModel(models.Model):
