@@ -131,6 +131,7 @@ env.bak/
 venv.bak/
 0x1.Introduction_ to_ Django/django_week1/
 django-models/django_week2/
+advanced_features_and_security/django_week3/
 
 # Spyder project settings
 .spyderproject
