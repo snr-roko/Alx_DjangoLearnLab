@@ -1,26 +1,27 @@
 from django import forms
-from .models import Book
+from .models import Book, ExampleModel
 
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ['title', 'author', 'published_date', 'isbn', 'summary']
+        fields = ['title', 'author', 'publication_year']
         widgets = {
-            'summary': forms.Textarea(attrs={'rows': 4}),
+            'publication_year': forms.NumberInput(attrs={'min': 1900, 'max': 2100}),
         }
 
-    def clean_isbn(self):
-        isbn = self.cleaned_data.get('isbn')
-        if not isbn.isdigit():
-            raise forms.ValidationError("ISBN should only contain digits.")
-        return isbn
+    def clean_publication_year(self):
+        year = self.cleaned_data.get('publication_year')
+        if year < 1900 or year > 2100:
+            raise forms.ValidationError("Publication year must be between 1900 and 2100.")
+        return year
 
-    def clean(self):
-        cleaned_data = super().clean()
-        title = cleaned_data.get('title')
+class ExampleForm(forms.ModelForm):
+    class Meta:
+        model = ExampleModel
+        fields = ['user']
 
-        # Example validation: Ensure the title doesn't contain malicious content
-        if "<script>" in title:
-            self.add_error('title', "Invalid title content.")
-        
-        return cleaned_data
+    def clean_user(self):
+        user = self.cleaned_data.get('user')
+        if not user:
+            raise forms.ValidationError("User field cannot be empty.")
+        return user
