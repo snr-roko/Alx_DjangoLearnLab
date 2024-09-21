@@ -4,7 +4,10 @@
 <h2>Profile</h2>
 {{ user.username }}
 {{ user.first_name }} {{ user.last_name }}
-<a href="{% url 'logout' %}"><button>Logout</button></a>
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
 <h3>Update User Profile</h3>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
