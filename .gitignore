@@ -134,6 +134,7 @@ venv.bak/
 django-models/django_week2/
 advanced_features_and_security/django_week3/
 blog-env
+soc-venv
 
 # Spyder project settings
 .spyderproject
