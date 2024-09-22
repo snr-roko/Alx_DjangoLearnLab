@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
-
+from rest_framework.authtoken.models import Token
 CustomUser = get_user_model()
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -28,3 +28,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['profile_picture', 'email', 'first_name', 'last_name', 'username']
+
+
+"from rest_framework.authtoken.models import Token", "serializers.CharField()", "Token.objects.create", "get_user_model().objects.create_user"
